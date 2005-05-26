@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - Sample Mixer Library
 Name: SDL_mixer
 Version: 1.2.5
-Release: 5
+Release: 6
 Source: %{name}-%{version}.tar.gz
 Patch1: SDL_mixer-1.0.6-redhat.patch
 Patch2: SDL_mixer-1.2.4-64bit.patch
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
 %{_includedir}/SDL
 
 %changelog
+* Thu May 26 2005 Bill Nottingham <notting@redhat.com> 1.2.5-6
+- rebuild
+
 * Wed Feb  9 2005 Thomas Woerner <twoerner@redhat.com> 1.2.5-5
 - rebuild
 
