@@ -1,0 +1,11 @@
+--- SDL_mixer-1.0.6/timidity/config.h.redhat	Mon Nov 27 17:13:52 2000
++++ SDL_mixer-1.0.6/timidity/config.h	Mon Nov 27 17:14:09 2000
+@@ -202,7 +202,7 @@
+ 
+ /* You could specify a complete path, e.g. "/etc/timidity.cfg", and
+    then specify the library directory in the configuration file. */
+-#define CONFIG_FILE	"timidity.cfg"
++#define CONFIG_FILE	"/etc/timidity.cfg"
+ #ifdef __WIN32__
+ #define DEFAULT_PATH	"\\TIMIDITY"
+ #else
