@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - Sample Mixer Library
 Name: SDL_mixer
 Version: 1.2.5
-Release: 7
+Release: 9
 Source: %{name}-%{version}.tar.gz
 Patch1: SDL_mixer-1.0.6-redhat.patch
 Patch2: SDL_mixer-1.2.4-64bit.patch
@@ -14,23 +14,25 @@ BuildRoot: %{_tmppath}/%{name}-buildroot
 URL: http://www.libsdl.org/projects/SDL_mixer/
 Prefix: %{_prefix}
 BuildRequires: SDL-devel >= 1.2.4-1 
+BuildRequires: libvorbis-devel
 Requires: SDL >= 1.2.4-1
 
 %description
 A simple multi-channel audio mixer for SDL.
 It supports 4 channels of 16 bit stereo audio, plus a single channel
-of music, mixed by the popular MikMod MOD, Timidity MIDI and SMPEG MP3
+of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
 libraries.
 
 %package devel
 Summary: Libraries, includes and more to develop SDL applications using the SDL mixer.
 Group: Development/Libraries
 Requires: %{name} = %{version}
+Requires: SDL-devel >= 1.2.4-1
 
 %description devel
 Development files for SDL_mixer, a simple multi-channel audio mixer for SDL.
 It supports 4 channels of 16 bit stereo audio, plus a single channel
-of music, mixed by the popular MikMod MOD, Timidity MIDI and SMPEG MP3
+of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
 libraries.
 
 You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
@@ -80,6 +82,11 @@ rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
 %{_includedir}/SDL
 
 %changelog
+* Thu Jun  9 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.5-9
+- Bring back Ogg support (BuildRequire libvorbis-devel).
+- Add SDL-devel dependency to -devel.
+- Improve description.
+
 * Thu May 26 2005 Bill Nottingham <notting@redhat.com> 1.2.5-7
 - rebuild
 
