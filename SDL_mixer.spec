@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - Sample Mixer Library
 Name: SDL_mixer
 Version: 1.2.5
-Release: 9
+Release: 10
 Source: %{name}-%{version}.tar.gz
 Patch1: SDL_mixer-1.0.6-redhat.patch
 Patch2: SDL_mixer-1.2.4-64bit.patch
@@ -26,7 +26,7 @@ libraries.
 %package devel
 Summary: Libraries, includes and more to develop SDL applications using the SDL mixer.
 Group: Development/Libraries
-Requires: %{name} = %{version}
+Requires: %{name} = %{version}-%{release}
 Requires: SDL-devel >= 1.2.4-1
 
 %description devel
@@ -82,6 +82,10 @@ rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
 %{_includedir}/SDL
 
 %changelog
+* Thu Jun 16 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.2.5-10
+- Make -devel package require exact release of main package (this
+  is particularly important for API changes such as in 1.2.5-9).
+
 * Thu Jun  9 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.5-9
 - Bring back Ogg support (BuildRequire libvorbis-devel).
 - Add SDL-devel dependency to -devel.
