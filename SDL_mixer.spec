@@ -1,13 +1,10 @@
 Summary: Simple DirectMedia Layer - Sample Mixer Library
 Name: SDL_mixer
-Version: 1.2.5
-Release: 10.1
-Source: %{name}-%{version}.tar.gz
+Version: 1.2.6
+Release: 1%{?dist}
+Source: http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 Patch1: SDL_mixer-1.0.6-redhat.patch
-Patch2: SDL_mixer-1.2.4-64bit.patch
-Patch3: SDL_mixer-ppc64.patch
 Patch4: SDL_mixer-1.2.5-bad_code.patch
-Patch5: SDL_mixer-1.2.5-autofoo.patch
 License: LGPL
 Group: System Environment/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -15,6 +12,7 @@ URL: http://www.libsdl.org/projects/SDL_mixer/
 Prefix: %{_prefix}
 BuildRequires: SDL-devel >= 1.2.4-1 
 BuildRequires: libvorbis-devel
+BuildRequires: mikmod-devel >= 3.1.6-26
 Requires: SDL >= 1.2.4-1
 
 %description
@@ -24,7 +22,7 @@ of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
 libraries.
 
 %package devel
-Summary: Libraries, includes and more to develop SDL applications using the SDL mixer.
+Summary: Libraries, includes and more to develop SDL applications using the SDL mixer
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: SDL-devel >= 1.2.4-1
@@ -40,18 +38,10 @@ You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
 %prep
 %setup -q
 %patch1 -p1 -b .redhat
-%patch2 -p1 -b .64bit
-%patch3 -p1 -b .ppc64
 %patch4 -p1 -b .bad_code
-%patch5 -p1 -b .autofoo
 
 %build
-# replaced by patch
-#libtoolize --copy --force
-#aclocal
-#autoconf
-#automake --foreign --include-deps --add-missing --force-missing --copy -a
-%configure
+%configure --disable-dependency-tracking
 make %{?_smp_mflags}
 
 %install
@@ -60,9 +50,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/install -d $RPM_BUILD_ROOT/usr/bin
 ./libtool --mode=install /usr/bin/install -c playmus $RPM_BUILD_ROOT/usr/bin
 ./libtool --mode=install /usr/bin/install -c playwave $RPM_BUILD_ROOT/usr/bin
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
-rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
+rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 
@@ -77,11 +68,16 @@ rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
 
 %files devel
 %defattr(-,root,root)
-%{_libdir}/*a
+%{_libdir}/lib*.a
 %{_libdir}/lib*.so
 %{_includedir}/SDL
 
 %changelog
+* Sun Jun 19 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.6-1
+- 1.2.6, use system libmikmod.
+- Drop obsolete patches, *.la and over-eager cleanup from %%clean.
+- Build with dependency tracking disabled.
+
 * Thu Jun 16 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.2.5-10.1
 - Make -devel package require exact release of main package (this
   is particularly important for API changes such as in 1.2.5-9).
