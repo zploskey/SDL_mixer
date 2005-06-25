@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - Sample Mixer Library
 Name: SDL_mixer
 Version: 1.2.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 Patch1: SDL_mixer-1.0.6-redhat.patch
 Patch4: SDL_mixer-1.2.5-bad_code.patch
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Sat Jun 25 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.6-2
+- Rebuild.
+
 * Sun Jun 19 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.6-1
 - 1.2.6, use system libmikmod.
 - Drop obsolete patches, *.la and over-eager cleanup from %%clean.
