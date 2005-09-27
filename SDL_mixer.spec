@@ -1,19 +1,22 @@
-Summary: Simple DirectMedia Layer - Sample Mixer Library
-Name: SDL_mixer
-Version: 1.2.6
-Release: 2%{?dist}
-Source: http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
-Patch1: SDL_mixer-1.0.6-redhat.patch
-Patch4: SDL_mixer-1.2.5-bad_code.patch
-License: LGPL
-Group: System Environment/Libraries
-BuildRoot: %{_tmppath}/%{name}-buildroot
-URL: http://www.libsdl.org/projects/SDL_mixer/
-Prefix: %{_prefix}
-BuildRequires: SDL-devel >= 1.2.4-1 
-BuildRequires: libvorbis-devel
-BuildRequires: mikmod-devel >= 3.1.6-26
-Requires: SDL >= 1.2.4-1
+Name:		SDL_mixer
+Version:	1.2.6
+Release:	3%{?dist}
+Summary:	Simple DirectMedia Layer - Sample Mixer Library
+
+Group:		System Environment/Libraries
+License:	LGPL
+URL:		http://www.libsdl.org/projects/SDL_mixer/
+Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
+Patch1:		SDL_mixer-1.0.6-redhat.patch
+Patch4:		SDL_mixer-1.2.5-bad_code.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Prefix:		%{_prefix}
+BuildRequires:	SDL-devel >= 1.2.4-1 
+BuildRequires:	libvorbis-devel
+BuildRequires:	mikmod-devel >= 3.1.6-26
+Requires:	SDL >= 1.2.4-1
+
 
 %description
 A simple multi-channel audio mixer for SDL.
@@ -21,11 +24,13 @@ It supports 4 channels of 16 bit stereo audio, plus a single channel
 of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
 libraries.
 
+
 %package devel
-Summary: Libraries, includes and more to develop SDL applications using the SDL mixer
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
-Requires: SDL-devel >= 1.2.4-1
+Summary:	Libraries, includes and more to develop SDL applications using the SDL mixer
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	SDL-devel >= 1.2.4-1
+
 
 %description devel
 Development files for SDL_mixer, a simple multi-channel audio mixer for SDL.
@@ -35,14 +40,17 @@ libraries.
 
 You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
 
+
 %prep
 %setup -q
 %patch1 -p1 -b .redhat
 %patch4 -p1 -b .bad_code
 
+
 %build
 %configure --disable-dependency-tracking
 make %{?_smp_mflags}
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -52,12 +60,16 @@ rm -rf $RPM_BUILD_ROOT
 ./libtool --mode=install /usr/bin/install -c playwave $RPM_BUILD_ROOT/usr/bin
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+
 %post -p /sbin/ldconfig
 
+
 %postun -p /sbin/ldconfig
+
 
 %files
 %defattr(-,root,root)
@@ -66,13 +78,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/playwave
 %{_libdir}/lib*.so.*
 
+
 %files devel
 %defattr(-,root,root)
 %{_libdir}/lib*.a
 %{_libdir}/lib*.so
 %{_includedir}/SDL
 
+
 %changelog
+* Tue Sep 27 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-3
+- Cleanup up spec formatting.
+
 * Sat Jun 25 2005 Ville Skyttä <ville.skytta at iki.fi> - 1.2.6-2
 - Rebuild.
 
