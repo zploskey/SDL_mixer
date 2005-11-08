@@ -1,14 +1,15 @@
 Name:		SDL_mixer
 Version:	1.2.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
 License:	LGPL
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
-Patch1:		SDL_mixer-1.0.6-redhat.patch
-Patch4:		SDL_mixer-1.2.5-bad_code.patch
+Patch1:		%{name}-1.0.6-redhat.patch
+Patch2:		%{name}-1.2.6-libmikmod.patch
+Patch4:		%{name}-1.2.5-bad_code.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Prefix:		%{_prefix}
@@ -44,6 +45,7 @@ You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
 %prep
 %setup -q
 %patch1 -p1 -b .redhat
+%patch2 -p1 -b .libmikmod
 %patch4 -p1 -b .bad_code
 
 
@@ -87,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov  8 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-4
+- Add libmikmod patch to fix Bug #171562. (Thanks, Ville)
+
 * Tue Sep 27 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-3
 - Cleanup up spec formatting.
 
