@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -16,6 +16,7 @@ Prefix:		%{_prefix}
 BuildRequires:	SDL-devel >= 1.2.4-1 
 BuildRequires:	libvorbis-devel
 BuildRequires:	mikmod-devel >= 3.1.6-26
+Requires:	timidity++
 Requires:	SDL >= 1.2.4-1
 
 
@@ -89,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 16 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-5
+- Add requires for timidity++ to fix bug #173393.
+
 * Tue Nov  8 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-4
 - Add libmikmod patch to fix Bug #171562. (Thanks, Ville)
 
