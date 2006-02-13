@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 13 2006 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-6
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Wed Nov 16 2005 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-5
 - Add requires for timidity++ to fix bug #173393.
 
