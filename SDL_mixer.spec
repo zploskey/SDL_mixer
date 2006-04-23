@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.6
-Release:	6%{?dist}
+Release:	8%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -10,6 +10,7 @@ Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.g
 Patch1:		%{name}-1.0.6-redhat.patch
 Patch2:		%{name}-1.2.6-libmikmod.patch
 Patch4:		%{name}-1.2.5-bad_code.patch
+Patch5:		%{name}-1.2.6-64bit.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Prefix:		%{_prefix}
@@ -48,6 +49,7 @@ You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
 %patch1 -p1 -b .redhat
 %patch2 -p1 -b .libmikmod
 %patch4 -p1 -b .bad_code
+%patch5 -p1 -b .64bit
 
 
 %build
@@ -90,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 23 2006 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-8
+- Add patch to fix sound on x86_64. Bug #175672.
+
 * Mon Feb 13 2006 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-6
 - rebuilt for new gcc4.1 snapshot and glibc changes
 
