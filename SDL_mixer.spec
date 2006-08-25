@@ -1,19 +1,17 @@
 Name:		SDL_mixer
-Version:	1.2.6
-Release:	8%{?dist}
+Version:	1.2.7
+Release:	1%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
 License:	LGPL
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
-Patch1:		%{name}-1.0.6-redhat.patch
-Patch2:		%{name}-1.2.6-libmikmod.patch
-Patch4:		%{name}-1.2.5-bad_code.patch
-Patch5:		%{name}-1.2.6-64bit.patch
+Patch1:		%{name}-%{version}-bad-code.patch
+Patch2:		%{name}-%{version}-volume.patch
+Patch3:		%{name}-%{version}-fix-path-timidity.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Prefix:		%{_prefix}
 BuildRequires:	SDL-devel >= 1.2.4-1 
 BuildRequires:	libvorbis-devel
 BuildRequires:	mikmod-devel >= 3.1.6-26
@@ -22,48 +20,40 @@ Requires:	SDL >= 1.2.4-1
 
 
 %description
-A simple multi-channel audio mixer for SDL.
-It supports 4 channels of 16 bit stereo audio, plus a single channel
-of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
-libraries.
+A simple multi-channel audio mixer for SDL. It supports 4 channels of
+16 bit stereo audio, plus a single channel of music, mixed by the popular
+MikMod MOD, Timidity MIDI and Ogg Vorbis libraries.
 
 
 %package devel
-Summary:	Libraries, includes and more to develop SDL applications using the SDL mixer
+Summary:	Development files for %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel >= 1.2.4-1
 
 
 %description devel
-Development files for SDL_mixer, a simple multi-channel audio mixer for SDL.
-It supports 4 channels of 16 bit stereo audio, plus a single channel
-of music, mixed by the popular MikMod MOD, Timidity MIDI and Ogg Vorbis
-libraries.
-
-You need SDL_mixer-devel if you want to compile an application using SDL_mixer.
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
 %prep
 %setup -q
-%patch1 -p1 -b .redhat
-%patch2 -p1 -b .libmikmod
-%patch4 -p1 -b .bad_code
-%patch5 -p1 -b .64bit
+%patch1 -p1 -b .bad_code
+%patch2 -p1 -b .volume
+%patch3 -p1 -b .timidity
 
 
 %build
-%configure --disable-dependency-tracking
+%configure --disable-dependency-tracking --disable-static
 make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall
-/usr/bin/install -d $RPM_BUILD_ROOT/usr/bin
-./libtool --mode=install /usr/bin/install -c playmus $RPM_BUILD_ROOT/usr/bin
-./libtool --mode=install /usr/bin/install -c playwave $RPM_BUILD_ROOT/usr/bin
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+%makeinstall install-bin
+
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %clean
@@ -77,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %doc README CHANGES COPYING
 %{_bindir}/playmus
 %{_bindir}/playwave
@@ -85,13 +75,21 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files devel
-%defattr(-,root,root)
-%{_libdir}/lib*.a
+%defattr(-,root,root,-)
 %{_libdir}/lib*.so
 %{_includedir}/SDL
 
 
 %changelog
+* Fri Aug 25 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-1
+- Update to 1.2.7.
+- Update bad-code & timidity patches.
+- Simplify description & summary for devel package.
+- Use disable-static configure flag.
+- Drop 64bit patch, fixed upstream.
+- Drop libmikmod.patch, fixed upstream.
+- Add patch to allow control volume w/playmus. Bug #203210.
+
 * Sun Apr 23 2006 Brian Pepple <bdpepple@ameritech.net> - 1.2.6-8
 - Add patch to fix sound on x86_64. Bug #175672.
 
