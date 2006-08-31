@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Aug 31 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-2
+- Rebuild for FC6.
+
 * Fri Aug 25 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-1
 - Update to 1.2.7.
 - Update bad-code & timidity patches.
