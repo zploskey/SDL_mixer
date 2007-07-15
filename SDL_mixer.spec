@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.7
-Release:	2%{?dist}
+Release: 	3%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -10,6 +10,7 @@ Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.g
 Patch1:		%{name}-%{version}-bad-code.patch
 Patch2:		%{name}-%{version}-volume.patch
 Patch3:		%{name}-%{version}-fix-path-timidity.patch
+Patch4:		%{name}-%{version}-reopen.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	SDL-devel >= 1.2.4-1 
@@ -42,6 +43,7 @@ developing applications that use %{name}.
 %patch1 -p1 -b .bad_code
 %patch2 -p1 -b .volume
 %patch3 -p1 -b .timidity
+%patch4 -p2 -b .reopen
 
 
 %build
@@ -81,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 14 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-3
+- Add patch fix eopening issue. (#248253)
+
 * Thu Aug 31 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-2
 - Rebuild for FC6.
 
