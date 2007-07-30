@@ -1,23 +1,19 @@
 Name:		SDL_mixer
-Version:	1.2.7
-Release: 	3%{?dist}
+Version:	1.2.8
+Release: 	1%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
 License:	LGPL
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
-Patch1:		%{name}-%{version}-bad-code.patch
-Patch2:		%{name}-%{version}-volume.patch
-Patch3:		%{name}-%{version}-fix-path-timidity.patch
-Patch4:		%{name}-%{version}-reopen.patch
+Patch3:		%{name}-1.2.7-fix-path-timidity.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:	SDL-devel >= 1.2.4-1 
+BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
-BuildRequires:	mikmod-devel >= 3.1.6-26
+BuildRequires:	mikmod-devel >= 3.1.10
 Requires:	timidity++
-Requires:	SDL >= 1.2.4-1
 
 
 %description
@@ -30,7 +26,7 @@ MikMod MOD, Timidity MIDI and Ogg Vorbis libraries.
 Summary:	Development files for %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	SDL-devel >= 1.2.4-1
+Requires:	SDL-devel >= 1.2.10
 
 
 %description devel
@@ -40,10 +36,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch1 -p1 -b .bad_code
-%patch2 -p1 -b .volume
 %patch3 -p1 -b .timidity
-%patch4 -p2 -b .reopen
 
 
 %build
@@ -83,6 +76,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 30 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-1
+- Update to 1.2.8.
+- Drop requires on SDL, since the devel soname will pull it in.
+- Drop volume patch.  fixed upstream.
+- Drop reopen patch.  fixed upstream.
+- Drop bad-code patch.  fixed upstream.
+- Bump min version of SDL needed.
+- Bump min version of mikmod needed.
+
 * Sat Jul 14 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.7-3
 - Add patch fix eopening issue. (#248253)
 
