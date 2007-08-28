@@ -1,10 +1,10 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
-License:	LGPL
+License:	LGPLv2
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 Patch3:		%{name}-1.2.7-fix-path-timidity.patch
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 28 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-2
+- Rebuild.
+
 * Mon Jul 30 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-1
 - Update to 1.2.8.
 - Drop requires on SDL, since the devel soname will pull it in.
