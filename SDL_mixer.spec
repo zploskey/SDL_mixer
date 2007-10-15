@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -13,7 +13,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
 BuildRequires:	mikmod-devel >= 3.1.10
-Requires:	timidity++
+Requires:	timidity++-patches
 
 
 %description
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 15 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-3
+- Change requires to timidity++-patches. (#331431)
+
 * Tue Aug 28 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-2
 - Rebuild.
 
