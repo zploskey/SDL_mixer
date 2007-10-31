@@ -1,12 +1,16 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
 License:	LGPLv2
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
+# Temporary hack so SDL apps don't lock up by default
+# This will be removed when SDL supports pulseaudio directly
+Source1:	SDL_pulseaudio_hack.csh
+Source2:	SDL_pulseaudio_hack.sh
 Patch3:		%{name}-1.2.7-fix-path-timidity.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -50,6 +54,11 @@ rm -rf $RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
+# Temporary SDL pulseuadio hack
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/
+install -m 644 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/
+install -m 644 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/playmus
 %{_bindir}/playwave
 %{_libdir}/lib*.so.*
+# Temporary SDL pulseaudio hack
+%{_sysconfdir}/profile.d/*
 
 
 %files devel
@@ -76,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 30 2007 Warren Togami <wtogami@redhat.com> - 1.2.8-4
+- SDL_AUDIODRIVER=esd temporary hack until SDL supports pulseaudio directly
+  avoids applications from locking up. (#358341)
+
 * Mon Oct 15 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-3
 - Change requires to timidity++-patches. (#331431)
 
