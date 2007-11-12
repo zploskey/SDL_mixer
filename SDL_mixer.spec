@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	4%{?dist}
+Release: 	5%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -44,7 +44,9 @@ developing applications that use %{name}.
 
 
 %build
-%configure --disable-dependency-tracking --disable-static
+%configure --disable-dependency-tracking	\
+	   --disable-static 			\
+	   --enable-music-libmikmod
 make %{?_smp_mflags}
 
 
@@ -87,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 12 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-5
+- link against system libmikmod. (#355991)
+
 * Tue Oct 30 2007 Warren Togami <wtogami@redhat.com> - 1.2.8-4
 - SDL_AUDIODRIVER=esd temporary hack until SDL supports pulseaudio directly
   avoids applications from locking up. (#358341)
