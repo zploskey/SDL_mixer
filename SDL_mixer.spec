@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	6%{?dist}
+Release: 	7%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Feb  8 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-7
+- Rebuild for gcc-4.3.
+
 * Tue Jan  8 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-6
 - Pulseaudio hack has been moved to SDL. (#427865) 
 
