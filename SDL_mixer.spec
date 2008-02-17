@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	7%{?dist}
+Release: 	8%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 17 2008 Jesse Keating <jkeating@redhat.com> - 1.2.8-8
+- Rebuild for new mikmod.
+
 * Fri Feb  8 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-7
 - Rebuild for gcc-4.3.
 
