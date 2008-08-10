@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	8%{?dist}
+Release: 	9%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -14,6 +14,8 @@ BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	libvorbis-devel
 BuildRequires:	mikmod-devel >= 3.1.10
 Requires:	timidity++-patches
+# Require libvorbis since we build it with dynamically load support.
+Requires:	libvorbis
 
 
 %description
@@ -27,7 +29,7 @@ Summary:	Development files for %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel >= 1.2.10
-
+Requires:	libvorbis-devel
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -77,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Aug 10 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-9
+- Add requires on libvorbis.
+
 * Sun Feb 17 2008 Jesse Keating <jkeating@redhat.com> - 1.2.8-8
 - Rebuild for new mikmod.
 
