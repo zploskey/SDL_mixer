@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	9%{?dist}
+Release: 	10%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -16,6 +16,7 @@ BuildRequires:	mikmod-devel >= 3.1.10
 Requires:	timidity++-patches
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
+Provides:	SDL_mixer-midi
 
 
 %description
@@ -79,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 20 2009 Peter Robinson <pbrobinson@gmail.com> - 1.2.8-10
+- Add Provides: SDL_mixer-midi in prep for moving samples to sub-package
+
 * Sun Aug 10 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.8-9
 - Add requires on libvorbis.
 
