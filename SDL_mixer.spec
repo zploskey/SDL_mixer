@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	11%{?dist}
+Release: 	12%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -13,17 +13,13 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
 BuildRequires:	mikmod-devel >= 3.1.10
-Requires:	timidity++-patches
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
-Provides:	SDL_mixer-midi
-
 
 %description
 A simple multi-channel audio mixer for SDL. It supports 4 channels of
 16 bit stereo audio, plus a single channel of music, mixed by the popular
 MikMod MOD, Timidity MIDI and Ogg Vorbis libraries.
-
 
 %package devel
 Summary:	Development files for %{name}
@@ -36,16 +32,19 @@ Requires:	libvorbis-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-
 %prep
 %setup -q
 %patch3 -p1 -b .timidity
-
 
 %build
 %configure --disable-dependency-tracking	\
 	   --disable-static 			\
 	   --enable-music-libmikmod
+
+# Remove rpath as per https://fedoraproject.org/wiki/Packaging/Guidelines#Beware_of_Rpath
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
 make %{?_smp_mflags}
 
 
@@ -55,16 +54,12 @@ rm -rf $RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %post -p /sbin/ldconfig
 
-
 %postun -p /sbin/ldconfig
-
 
 %files
 %defattr(-,root,root,-)
@@ -78,8 +73,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.so
 %{_includedir}/SDL
 
-
 %changelog
+* Sun Apr  5 2009 Peter Robinson <pbrobinson@gmail.com> - 1.2.8-12
+- Remove dependency on timidity++-patches
+
 * Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
