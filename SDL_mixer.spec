@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.8
-Release: 	12%{?dist}
+Release: 	13%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Sun Apr  5 2009 Peter Robinson <pbrobinson@gmail.com> - 1.2.8-12
 - Remove dependency on timidity++-patches
 
