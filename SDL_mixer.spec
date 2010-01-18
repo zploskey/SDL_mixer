@@ -1,13 +1,12 @@
 Name:		SDL_mixer
-Version:	1.2.8
-Release: 	13%{?dist}
+Version:	1.2.11
+Release: 	1%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
 License:	LGPLv2
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
-Patch3:		%{name}-1.2.7-fix-path-timidity.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	SDL-devel >= 1.2.10 
@@ -27,6 +26,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel >= 1.2.10
 Requires:	libvorbis-devel
+Requires:	pkgconfig
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -34,7 +34,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch3 -p1 -b .timidity
 
 %build
 %configure --disable-dependency-tracking	\
@@ -71,9 +70,14 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %{_libdir}/lib*.so
+%{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/SDL
 
 %changelog
+* Mon Jan 18 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.2.11-1
+- Update to 1.2.11.
+- Drop timidity path patch.  Fixed upstream.
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
