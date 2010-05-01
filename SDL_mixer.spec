@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.11
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -11,6 +11,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
+BuildRequires:	flac-devel
 BuildRequires:	mikmod-devel >= 3.1.10
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
@@ -74,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Sat May 01 2010 Thomas Janssen <thomasj@fedorapeople.org> 1.2.11-2
+- added flac support
+
 * Mon Jan 18 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.2.11-1
 - Update to 1.2.11.
 - Drop timidity path patch.  Fixed upstream.
