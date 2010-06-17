@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.11
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -15,6 +15,7 @@ BuildRequires:	flac-devel
 BuildRequires:	mikmod-devel >= 3.1.10
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
+Requires:	libmikmod
 
 %description
 A simple multi-channel audio mixer for SDL. It supports 4 channels of
@@ -75,6 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Thu Jun 17 2010 Thomas Janssen <thomasj@fedorapeople.org> 1.2.11-3
+- added R libmikmod
+- #571177 #584211
+
 * Sat May 01 2010 Thomas Janssen <thomasj@fedorapeople.org> 1.2.11-2
 - added flac support
 
