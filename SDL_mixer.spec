@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.11
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -45,8 +45,9 @@ developing applications that use %{name}.
 # Remove rpath as per https://fedoraproject.org/wiki/Packaging/Guidelines#Beware_of_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-make %{?_smp_mflags}
+# Upstream bug for proper fixing of the lack of -lm:
+# http://bugzilla.libsdl.org/show_bug.cgi?id=1010
+make %{?_smp_mflags} LDFLAGS=-lm
 
 
 %install
@@ -76,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Thu Jun 24 2010 Hans de Goede <hdegoede@redhat.com> 1.2.11-4
+- link SDL_mixer with -lm (#607357)
+
 * Thu Jun 17 2010 Thomas Janssen <thomasj@fedorapeople.org> 1.2.11-3
 - added R libmikmod
 - #571177 #584211
