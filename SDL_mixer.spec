@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -83,8 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
-* Sun Jul 29 2012 Jan Dvorak <mordae@anilinux.org> - 1.2.12-2
+* Sun Jul 29 2012 Jan Dvorak <mordae@anilinux.org> - 1.2.12-3
 - Apply MikMod-related fixes from trunk to prevent crashes.
+
+* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
 * Tue Jan 31 2012 Jon Ciesla <limburgher@gmail.com> - 1.2.12-1
 - New upstream.
