@@ -9,6 +9,10 @@ URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+# MikMod-related fixes from trunk
+Patch0:         SDL_mixer-MikMod-1.patch
+Patch1:         SDL_mixer-MikMod-2.patch
+
 BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
 BuildRequires:	flac-devel
@@ -36,6 +40,8 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 %configure --disable-dependency-tracking	\
@@ -77,8 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+* Sun Jul 29 2012 Jan Dvorak <mordae@anilinux.org> - 1.2.12-2
+- Apply MikMod-related fixes from trunk to prevent crashes.
 
 * Tue Jan 31 2012 Jon Ciesla <limburgher@gmail.com> - 1.2.12-1
 - New upstream.
