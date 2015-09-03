@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	9%{?dist}
+Release: 	10%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -35,7 +35,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel >= 1.2.10
 Requires:	libvorbis-devel
 Requires:	libmikmod-devel
-Requires:	libfluidsynth-devel
+Requires:	fluidsynth-devel
 Requires:	pkgconfig
 
 %description devel
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Thu Sep 03 2015 Jon Ciesla <limburgher@gmail.com> - 1.2.12-10
+- Fix -devel BR.
+
 * Thu Sep 03 2015 Jon Ciesla <limburgher@gmail.com> - 1.2.12-9
 - Enable fluidsynth support, BZ 1218776.
 
