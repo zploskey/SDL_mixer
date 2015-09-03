@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	8%{?dist}
+Release: 	9%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 Group:		System Environment/Libraries
@@ -17,9 +17,11 @@ BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	libvorbis-devel
 BuildRequires:	flac-devel
 BuildRequires:	mikmod-devel >= 3.1.10
+BuildRequires:	fluidsynth-devel
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
 Requires:	libmikmod
+Requires:	fluidsynth
 
 %description
 A simple multi-channel audio mixer for SDL. It supports 4 channels of
@@ -32,6 +34,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel >= 1.2.10
 Requires:	libvorbis-devel
+Requires:	libmikmod-devel
+Requires:	libfluidsynth-devel
 Requires:	pkgconfig
 
 %description devel
@@ -83,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL
 
 %changelog
+* Thu Sep 03 2015 Jon Ciesla <limburgher@gmail.com> - 1.2.12-9
+- Enable fluidsynth support, BZ 1218776.
+
 * Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
