@@ -18,10 +18,12 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	flac-devel
 BuildRequires:	mikmod-devel >= 3.1.10
 BuildRequires:	fluidsynth-devel
+BuildRequires:	smpeg-devel
 # Require libvorbis since we build it with dynamically load support.
 Requires:	libvorbis
 Requires:	libmikmod
 Requires:	fluidsynth
+Requires:	smpeg
 
 %description
 A simple multi-channel audio mixer for SDL. It supports 4 channels of
@@ -50,7 +52,8 @@ developing applications that use %{name}.
 %build
 %configure --disable-dependency-tracking	\
 	   --disable-static 			\
-	   --enable-music-libmikmod
+	   --enable-music-libmikmod 			\
+	   --enable-music-mp3
 
 # Remove rpath as per https://fedoraproject.org/wiki/Packaging/Guidelines#Beware_of_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
