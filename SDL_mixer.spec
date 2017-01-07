@@ -52,7 +52,7 @@ developing applications that use %{name}.
 %build
 %configure --disable-dependency-tracking	\
 	   --disable-static 			\
-	   --enable-music-libmikmod 			\
+	   --enable-music-libmikmod 		\
 	   --enable-music-mp3
 
 # Remove rpath as per https://fedoraproject.org/wiki/Packaging/Guidelines#Beware_of_Rpath
